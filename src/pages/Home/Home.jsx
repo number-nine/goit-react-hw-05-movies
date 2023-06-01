@@ -1,61 +1,54 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import getMovies from 'controllers/api-controller';
-import NavigationButtons from 'components/NavigationButtons';
-
-// state = {
-//     page: 0,
-//     data: [],
-//     total: 0,
-//     position: start-end-middle
-// }
+import PaginationControls from 'components/PaginationControls';
+import SplashScreen from 'components/SplashScreen';
 
 const PER_PAGE = 20;
 const INITIAL_STATE = {
   page: 0,
   data: [],
   total: 103,
-  position: 'start',
 };
 
-function reducer(state, action) {
-  const lastPage = Math.ceil(state.total / PER_PAGE);
-  switch (action.type) {
-    case 'moveNext':
-      return state.page < lastPage ? { ...state, page: state.page + 1 } : state;
-    case 'movePrev':
-      return state.page > 0 ? { ...state, page: state.page - 1 } : state;
-    case 'moveLast':
-      return state.page !== lastPage ? { ...state, page: lastPage } : state;
-    case 'moveFirst':
-      return state.page !== 0 ? { ...state, page: 0 } : state;
-    case 'setControlsStatus':
-      if (state.page === 0) {
-        return { ...state, position: 'start' };
-      }
-      if (state.page === lastPage.page) {
-        return { ...state, position: 'end' };
-      }
-      return { ...state, position: 'middle' };
-
-    default:
-      return state;
-  }
-}
-
 export default function Home() {
-    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-    
-    function handleClick(){}
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const lastPage = Math.ceil(state.total / PER_PAGE);
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'next':
+        return { ...state, page: state.page + 1 };
+      case 'back':
+        return { ...state, page: state.page - 1 };
+      case 'last':
+        return { ...state, page: lastPage };
+      case 'first':
+        return { ...state, page: 0 };
+
+      default:
+        return state;
+    }
+  }
 
   useEffect(() => {
-    //   getMovies('trending/movie/')
-    console.log(state);
-  }, [state]);
-
-  useEffect(() => {
-    dispatch({ type: 'setControlsStatus' });
+    setIsLoading(true);
+    getMovies('trending/movie/')
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        Notify.info(
+          `Remote data unavailable. ${error.message}. Please try again later.`
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [state.page]);
 
   return (
@@ -66,7 +59,12 @@ export default function Home() {
           <Link to="/movies/1">Trending Movie 1</Link>
         </li>
       </ul>
-          <NavigationButtons currentPage={ state.page} maxPage={lastPage} dispatch={dispatch} />
+      <PaginationControls
+        current={state.page}
+        total={lastPage}
+        onClick={dispatch}
+      />
+      {isLoading && <SplashScreen />}
     </>
   );
 }

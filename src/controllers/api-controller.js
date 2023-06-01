@@ -7,10 +7,7 @@
 // Docs
 // https://developer.themoviedb.org/docs
 
-
-
 import axios from 'axios';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const API_KEY = 'b0574b4adcec6022cde1a05e31ff0812';
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -22,15 +19,13 @@ const request = {
   },
 };
 
-export default async function getMovies(endpoint='', options ={}) {
+export default async function getMovies(endpoint = '', options = {}) {
   request.params = { ...request.params, ...options };
   try {
     const { data } = await axios.get(endpoint, request);
     console.log(data);
     return data;
   } catch (error) {
-    Notify.info(`Remote data unavailable. ${error.message}. Please try again later.`);
+    return error;
   }
 }
-
-

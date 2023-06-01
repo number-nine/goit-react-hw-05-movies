@@ -5,21 +5,35 @@ export default function PaginationControls({ current, total, onClick }) {
 
   return (
     <>
-      
-          <button type="button" onClick={() => onClick({ type: 'first' })}>
-            First Page
-          </button>
-          <button type="button" onClick={() => onClick({ type: 'back' })}>
-            Prev page
-          </button>
-    
-          <button type="button" onClick={() => onClick({ type: 'next' })}>
-            Next page
-          </button>
-      <button type="button" onClick={() => onClick({ type: 'last' })} {(true && 'disabled')}>
-            Last Page
-          </button>
-       
+      <button
+        type="button"
+        onClick={() => onClick({ type: 'first' })}
+        disabled={atStart}
+      >
+        First Page
+      </button>
+      <button
+        type="button"
+        onClick={() => onClick({ type: 'back' })}
+        disabled={atStart}
+      >
+        Prev page
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onClick({ type: 'next' })}
+        disabled={atEnd}
+      >
+        Next page
+      </button>
+      <button
+        type="button"
+        onClick={() => onClick({ type: 'last' })}
+        disabled={atEnd}
+      >
+        Last Page
+      </button>
     </>
   );
 }

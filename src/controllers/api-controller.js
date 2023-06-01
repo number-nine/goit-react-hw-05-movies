@@ -1,20 +1,32 @@
+// API key
+// b0574b4adcec6022cde1a05e31ff0812
+
+// Token
+// eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMDU3NGI0YWRjZWM2MDIyY2RlMWEwNWUzMWZmMDgxMiIsInN1YiI6IjY0Nzg1ODk3MGUyOWEyMDBhNjVlZTliYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LqRhvpUfAdXkzh0QdqReCBwm8cN_jLQcyKFyo2kwbME
+
+// Docs
+// https://developer.themoviedb.org/docs
+
+
+
 import axios from 'axios';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const options = {
-  baseURL: 'https://pixabay.com/api/',
+const API_KEY = 'b0574b4adcec6022cde1a05e31ff0812';
+const BASE_URL = 'https://api.themoviedb.org/3/';
+
+const request = {
+  baseURL: BASE_URL,
   params: {
-    key: '35449391-877499d7e02cc8d7dbb493e51',
-    image_type: 'photo',
-    orientation: 'horizontal',
-    safesearch: true,
+    api_key: API_KEY,
   },
 };
 
-export default async function getPictures({ page, query: q, perPage: per_page }) {
-  options.params = { ...options.params, page, q, per_page };
+export default async function getMovies(endpoint='', options ={}) {
+  request.params = { ...request.params, ...options };
   try {
-    const { data } = await axios.get('', options);
+    const { data } = await axios.get(endpoint, request);
+    console.log(data);
     return data;
   } catch (error) {
     Notify.info(`Remote data unavailable. ${error.message}. Please try again later.`);

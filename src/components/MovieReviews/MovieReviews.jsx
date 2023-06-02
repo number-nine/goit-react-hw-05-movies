@@ -5,17 +5,18 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import getMovies from 'controllers/api-controller';
 import SplashScreen from 'components/SplashScreen';
 
-export default function MovieCast() {
+export default function MovieReviews() {
   const { movieId } = useParams();
-  const [movieCast, setMovieCast] = useState({});
+  const [movieReviews, setMovieReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const ENDPOINT = 'movie/' + movieId + '/credits';
+  const ENDPOINT = 'movie/' + movieId + '/reviews';
 
   useEffect(() => {
     setIsLoading(true);
     getMovies(ENDPOINT)
-      .then(data => {
-        setMovieCast(data);
+      .then(({ results }) => {
+        setMovieReviews(results);
+        console.log(results);
       })
       .catch(error => {
         Notify.info(
@@ -28,14 +29,14 @@ export default function MovieCast() {
   }, [ENDPOINT]);
   return (
     <>
-      <div>Cast of movie {movieId}</div>
+      <div>Reviews for movie {movieId}</div>
       {isLoading ? (
         <SplashScreen />
       ) : (
         <ul>
-          {movieCast.cast?.map(actor => (
-            <li key={actor.credit_id}>
-              {actor.name} as {actor.character}
+          {movieReviews?.map(({ id, author, content }) => (
+            <li key={id}>
+              {author}: {content}
             </li>
           ))}
         </ul>

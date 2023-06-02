@@ -9,13 +9,13 @@ import SplashScreen from 'components/SplashScreen';
 const INITIAL_STATE = {
   page: 1,
   data: [],
-  total_pages:1,
+  total_pages: 1,
 };
 
 export default function Home() {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-    const [isLoading, setIsLoading] = useState(false);
-    const ENDPOINT = 'trending/movie/day';
+  const [isLoading, setIsLoading] = useState(false);
+  const ENDPOINT = 'trending/movie/day';
 
   function reducer(state, action) {
     switch (action.type) {
@@ -26,13 +26,13 @@ export default function Home() {
       case 'last':
         return { ...state, page: state.total_pages };
       case 'first':
-            return { ...state, page: 1 };
-        case 'setData':
-            return {
-              ...state,
-              total_pages: action.loadout.total_pages,
-              data: action.loadout.results,
-            };
+        return { ...state, page: 1 };
+      case 'setData':
+        return {
+          ...state,
+          total_pages: action.loadout.total_pages,
+          data: action.loadout.results,
+        };
 
       default:
         return state;
@@ -63,15 +63,17 @@ export default function Home() {
         total={state.total_pages}
         onClick={dispatch}
       />
-      <ul>
-        {state.data.map(movie => (
-          <li key={movie.id}>
-            <Link to={`movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
-      </ul>
-
-      {isLoading && <SplashScreen />}
+      {isLoading ? (
+        <SplashScreen />
+      ) : (
+        <ul>
+          {state.data.map(movie => (
+            <li key={movie.id}>
+              <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

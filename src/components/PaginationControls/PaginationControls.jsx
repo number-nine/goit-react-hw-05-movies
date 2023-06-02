@@ -1,5 +1,5 @@
 export default function PaginationControls({ current, total, onClick }) {
-  const atStart = current === 0;
+  const atStart = current === 1;
   const atEnd = current === total;
 
 

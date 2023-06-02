@@ -30,14 +30,13 @@ export default function MovieCast() {
   return (
     <>
       <div>Cast of movie {movieId}</div>
-      {/* <p>{movieCast.title ?? 'nothing to display'}</p> */}
-      {!isLoading && <ul>
-        {movieCast?.cast.map(actor => (
-          <li key={actor.credit_id}>
-            <Link to="cast">Cast</Link>
-          </li>
-        ))}
-      </ul>}
+      {!isLoading && (
+        <ul>
+          {movieCast.cast?.map(actor => (
+              <li key={actor.credit_id}>{actor.name} as { actor.character}</li>
+          ))}
+        </ul>
+      )}
       <Outlet />
       {isLoading && <SplashScreen />}
     </>

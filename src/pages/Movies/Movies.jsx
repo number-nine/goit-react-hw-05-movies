@@ -79,7 +79,7 @@ export default function Home() {
   useEffect(() => {
     if (skipFetch.current) {
       skipFetch.current = false;
-      setSearchParams({query: currentQuery});
+      setSearchParams({ query: currentQuery });
 
       return;
     }
@@ -93,7 +93,6 @@ export default function Home() {
         } else {
           dispatch({ type: 'data/set', payload: { results, total_pages } });
         }
-        
       })
       .catch(error => {
         if (error.response.data.status_code === 22) {
@@ -111,7 +110,6 @@ export default function Home() {
     const query = e.target.elements.query.value;
     e.preventDefault();
     if (isQueryValid(query)) {
-      // dispatch({ type: 'first' });
       setSearchParams({ query });
       return;
     }
@@ -158,128 +156,3 @@ export default function Home() {
     </>
   );
 }
-// import { useEffect, useReducer, useState } from 'react';
-// import { Link, useSearchParams } from 'react-router-dom';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
-// import getMovies from 'controllers/api-controller';
-// import PaginationControls from 'components/PaginationControls';
-// import SplashScreen from 'components/SplashScreen';
-
-// const INITIAL_STATE = {
-//   page: 1,
-//   data: [],
-//   total_pages: 1,
-//   query: '',
-// };
-
-// export default function Movies() {
-//   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [searchParams, setSeachParams] = useSearchParams();
-//   // const [query, setQuery] = useState('');
-//   const ENDPOINT = 'search/movie';
-
-//   function reducer(state, action) {
-//     switch (action.type) {
-//       case 'next':
-//         return { ...state, page: state.page + 1 };
-//       case 'back':
-//         return { ...state, page: state.page - 1 };
-//       case 'last':
-//         return { ...state, page: state.total_pages };
-//       case 'first':
-//         return { ...state, page: 1 };
-//       case 'setData':
-//         return {
-//           ...state,
-//           total_pages: action.loadout.total_pages,
-//           data: action.loadout.results,
-//         };
-//       case 'setQuery':
-//         return {
-//           ...state,
-//           query: action.loadout,
-//         };
-
-//       default:
-//         return state;
-//     }
-//   }
-
-//   useEffect(() => {
-//     setIsLoading(true);
-//     getMovies(ENDPOINT, { page: state.page, query: searchParams.get('query') })
-//       .then(data => {
-//         console.log(data);
-//         dispatch({ type: 'setData', loadout: data });
-//       })
-//       .catch(error => {
-//         Notify.info(
-//           `Remote data unavailable. ${error.message}. Please try again later.`
-//         );
-//       })
-//       .finally(() => {
-//         setIsLoading(false);
-//       });
-//   }, [state.page, searchParams]);
-
-//   useEffect(() => {
-//     setSeachParams({ page: state.page, query: state.query });
-//   }, [state.page]);
-
-//   const handleChangeQuery = e => {
-//     const { value } = e.target;
-//     dispatch({ type: 'setQuery', loadout: value });
-//   };
-
-//   const handleSubmit = e => {
-//     e.preventDefault();
-//     if (isQueryValid()) {
-//       dispatch({ type: 'first' });
-//       setSeachParams({ page: state.page, query: state.query });
-//       return;
-//     }
-//     Notify.failure('Enter valid query');
-//   };
-
-//   const isQueryValid = () => {
-//     return state.query.trim() !== '' ? true : false;
-//   };
-
-//   return (
-//     <>
-//       <h1>Search Movies</h1>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Enter movie name{' '}
-//           <input
-//             type="text"
-//             name="query"
-//             value={state.query}
-//             onChange={handleChangeQuery}
-//           />
-//         </label>
-//         <button type="submit">Search</button>
-//       </form>
-//       {state.total_pages > 1 && (
-//         <PaginationControls
-//           current={state.page}
-//           total={state.total_pages}
-//           onClick={dispatch}
-//         />
-//       )}
-//       {isLoading ? (
-//         <SplashScreen />
-//       ) : (
-//         <ul>
-//           {state.data.map(movie => (
-//             <li key={movie.id}>
-//               <Link to={`${movie.id}`}>{movie.title}</Link>
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </>
-//   );
-// }

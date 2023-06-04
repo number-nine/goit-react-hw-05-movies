@@ -11,10 +11,6 @@ import axios from 'axios';
 
 const API_KEY = 'b0574b4adcec6022cde1a05e31ff0812';
 const BASE_URL = 'https://api.themoviedb.org/3/';
-// const ENDPOINTS = {
-//   trending: '',
-//   movie_detail: 'movie',
-// };
 
 const request = {
   baseURL: BASE_URL,
@@ -29,6 +25,6 @@ export default async function getMovies(endpoint = '', options = {}) {
     const { data } = await axios.get(endpoint, request);
     return data;
   } catch (error) {
-    return error;
+    throw error;
   }
 }

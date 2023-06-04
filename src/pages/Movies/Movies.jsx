@@ -79,7 +79,7 @@ export default function Home() {
   useEffect(() => {
     if (skipFetch.current) {
       skipFetch.current = false;
-      setSearchParams({});
+      setSearchParams({query: currentQuery});
 
       return;
     }

@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   // error: false,
 };
 const MAX_PAGES = 1000;
+const PAGINATION_RELATED_ERROR = 22;
 
 export default function Home() {
   const skipFetch = useRef(false);
@@ -80,7 +81,7 @@ export default function Home() {
         dispatch({ type: 'data/set', payload: { results, total_pages } });
       })
       .catch(error => {
-        if (error.response.data.status_code === 22) {
+        if (error.response.data.status_code === PAGINATION_RELATED_ERROR) {
           setSearchParams({});
         }
         // dispatch({ type: 'error/set', payload: true });

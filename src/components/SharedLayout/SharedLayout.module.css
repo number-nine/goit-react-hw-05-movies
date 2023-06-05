@@ -28,14 +28,15 @@ li:focus {
     background-color: #6a79ce;
 }
 
-.Menu a {
+.Menu .nav_link {
     color: #fff;
     /* text-decoration: none; */
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .Menu .active {
-    color: #ff8c00;
+    color: #f1a240;
     font-weight: 600;
     text-decoration: none;
+    font-size: 18px;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -71,7 +71,10 @@ export default function MovieDetails() {
           </li>
         </ul>
       </section>
-      <Outlet />
+      <Suspense fallback={<div>Loading subcomponent...</div>}>
+        <Outlet />
+      </Suspense>
+
       {isLoading && <SplashScreen />}
     </>
   );

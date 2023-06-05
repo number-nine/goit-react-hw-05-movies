@@ -5,6 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import getMovies from 'controllers/api-controller';
 import PaginationControls from 'components/PaginationControls';
 import SplashScreen from 'components/SplashScreen';
+import css from './Movies.module.css'
 
 const INITIAL_STATE = {
   data: [],
@@ -125,8 +126,14 @@ export default function Home() {
 
   return (
     <>
-      <h1>Search Movies</h1>
-      <form onSubmit={handleSubmit}>
+      {state.total_pages > 1 && (
+        <PaginationControls
+          current={currentPage}
+          total={state.total_pages}
+          onClick={handlePagination}
+        />
+      )}
+      <form onSubmit={handleSubmit} className={css.MoviesForm}>
         <label>
           Enter movie name{' '}
           <input
@@ -138,25 +145,28 @@ export default function Home() {
         </label>
         <button type="submit">Search</button>
       </form>
-      {state.total_pages > 1 && (
-        <PaginationControls
-          current={currentPage}
-          total={state.total_pages}
-          onClick={handlePagination}
-        />
-      )}
+
       {state.isLoading ? (
         <SplashScreen />
-      ) : (
-        <ul>
+      ) : state.data.length > 0 ? (
+        <ul className={css.Movies}>
           {state.data.map(movie => (
             <li key={movie.id}>
               <Link to={`${movie.id}`} state={{ from: location }}>
-                {movie.title}
+                <img
+                  src={
+                    'https://image.tmdb.org/t/p/w220_and_h330_face' +
+                    movie.poster_path
+                  }
+                  alt={movie.title}
+                />
+                <h2>{movie.title}</h2>{' '}
               </Link>
             </li>
           ))}
         </ul>
+      ) : (
+        <p>No movies to display</p>
       )}
     </>
   );

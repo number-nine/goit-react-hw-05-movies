@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import css from './SharedLayout.module.css'
 
 export default function SharedLayout() {
@@ -6,10 +6,14 @@ export default function SharedLayout() {
       <>
         <ul className={css.Menu}>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="movies">Movies</Link>
+            <NavLink to="movies">
+              Movies
+            </NavLink>
           </li>
         </ul>
         <Outlet />

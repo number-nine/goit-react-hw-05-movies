@@ -5,6 +5,8 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import getMovies from 'controllers/api-controller';
 import SplashScreen from 'components/SplashScreen';
 
+import css from './MovieReviews.module.css';
+
 export default function MovieReviews() {
   const { movieId } = useParams();
   const [movieReviews, setMovieReviews] = useState([]);
@@ -16,7 +18,7 @@ export default function MovieReviews() {
     getMovies(ENDPOINT)
       .then(({ results }) => {
         setMovieReviews(results);
-        console.log(results);
+        // console.log(results);
       })
       .catch(error => {
         Notify.info(
@@ -29,17 +31,19 @@ export default function MovieReviews() {
   }, [ENDPOINT]);
   return (
     <>
-      <div>Reviews for movie {movieId}</div>
       {isLoading ? (
         <SplashScreen />
-      ) : (
-        <ul>
-          {movieReviews?.map(({ id, author, content }) => (
+      ) : movieReviews?.length > 0 ? (
+        <ul className={css.Reviews}>
+          {movieReviews.map(({ id, author, content }) => (
             <li key={id}>
-              {author}: {content}
+              <p className={css.author}>Author: {author}</p>
+              <p>{content }</p>
             </li>
           ))}
         </ul>
+      ) : (
+        <p>No reviews received</p>
       )}
     </>
   );

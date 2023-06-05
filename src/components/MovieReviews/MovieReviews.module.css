@@ -1,0 +1,20 @@
+.Reviews {
+    padding-left: 20px;
+        width: 90%;
+}
+
+.Reviews li {
+    display: block;
+    padding: 8px;
+    margin: 0;
+    margin-bottom: 8px;
+    border: 1px solid #bbb1b1;
+    border-radius: 16px;
+    list-style: none;
+}
+
+.author {
+
+    font-size: 20px;
+    font-weight: 600;
+}

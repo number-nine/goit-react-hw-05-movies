@@ -81,7 +81,7 @@ export default function Home() {
     // dispatch({ type: 'error/set', payload: false });
     getMovies(ENDPOINT, { page: currentPage })
       .then(({ results, total_pages }) => {
-        console.log(results);
+        // console.log(results);
         dispatch({ type: 'data/set', payload: { results, total_pages } });
       })
       .catch(error => {
@@ -105,7 +105,7 @@ export default function Home() {
       />
       {state.isLoading ? (
         <SplashScreen />
-      ) : (
+      ) : state.data.length > 0 ? (
         <ul className={css.Home}>
           {state.data.map(movie => (
             <li key={movie.id}>
@@ -122,6 +122,8 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      ) : (
+        <p>No movies to display</p>
       )}
     </>
   );

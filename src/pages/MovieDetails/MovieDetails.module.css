@@ -1,0 +1,50 @@
+.movieInfo {
+    display: grid;
+    grid-template:
+        "poster title"
+        "poster overview"
+        "poster rating"
+        "poster homepage" auto / 1fr 3fr;
+
+    padding: 20px;
+    margin: 0;
+    gap: 16px;
+}
+
+.movieTitle {
+    grid-area: title;
+}
+
+.moviePoster {
+    grid-area: poster;
+}
+
+.movieOverview {
+    grid-area: overview;
+}
+
+.movieHomepage {
+    grid-area: rating;
+}
+
+.movieRating {
+    grid-area: homepage;
+}
+
+.submenu {
+    padding: 0;
+    margin: 0;
+}
+
+.submenu li {
+    padding: 8px;
+    list-style: none;
+}
+
+.submenu a {
+    font-size: 16px;
+}
+
+section {
+    padding-left: 20px;
+}

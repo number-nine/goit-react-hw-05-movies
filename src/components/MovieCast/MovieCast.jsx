@@ -15,6 +15,7 @@ export default function MovieCast() {
     setIsLoading(true);
     getMovies(ENDPOINT)
       .then(data => {
+        // console.log(data);
         setMovieCast(data);
       })
       .catch(error => {
@@ -28,17 +29,18 @@ export default function MovieCast() {
   }, [ENDPOINT]);
   return (
     <>
-      <div>Cast of movie {movieId}</div>
       {isLoading ? (
         <SplashScreen />
-      ) : (
+      ) : movieCast.cast?.length > 0 ? (
         <ul>
-          {movieCast.cast?.map(actor => (
+          {movieCast.cast.map(actor => (
             <li key={actor.credit_id}>
               {actor.name} as {actor.character}
             </li>
           ))}
         </ul>
+      ) : (
+        <p>No data about actors</p>
       )}
     </>
   );

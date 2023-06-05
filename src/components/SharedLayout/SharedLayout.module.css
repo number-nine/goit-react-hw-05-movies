@@ -33,3 +33,9 @@ li:focus {
     /* text-decoration: none; */
     font-size: 18px;
 }
+
+.Menu .active {
+    color: #ff8c00;
+    font-weight: 600;
+    text-decoration: none;
+}

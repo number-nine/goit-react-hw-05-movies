@@ -8,6 +8,13 @@
     /* padding-bottom: 24px; */
 }
 
+.Movies h2 {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0;
+    margin: 8px;
+}
+
 .Movies li {
     padding: 8px;
     list-style: none;
@@ -28,9 +35,42 @@ li:focus {
 .Movies a {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    height: 100%;
     color: #000;
     text-decoration: none;
     font-size: 18px;
+}
+
+.MoviesForm {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.MoviesForm button {
+    margin-left: 4px;
+    margin-right: 4px;
+    padding: 8px;
+
+
+    color: #ffffff;
+    background-color: #3f51b5;
+    border: none;
+    border-radius: 4px;
+
+    cursor: pointer;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.MoviesForm button:hover {
+    background-color: #6a79ce;
+    box-shadow: none;
+}
+
+.MoviesForm  input {
+    height: 32px;
+    font-size: 20px;
 }

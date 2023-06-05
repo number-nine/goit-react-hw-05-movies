@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef, useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import getMovies from 'controllers/api-controller';
@@ -21,6 +21,7 @@ export default function Home() {
   const skipFetch = useRef(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const location = useLocation();
   const ENDPOINT = 'search/movie';
 
   const currentPage = useMemo(() => {
@@ -80,7 +81,8 @@ export default function Home() {
   useEffect(() => {
     if (skipFetch.current) {
       skipFetch.current = false;
-      setSearchParams({ query: currentQuery });
+      setSearchParams({ });
+      // setSearchParams({ query: currentQuery });
 
       return;
     }
@@ -149,7 +151,9 @@ export default function Home() {
         <ul>
           {state.data.map(movie => (
             <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.title}</Link>
+              <Link to={`${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </Link>
             </li>
           ))}
         </ul>

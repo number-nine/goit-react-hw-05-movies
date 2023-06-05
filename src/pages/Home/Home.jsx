@@ -1,10 +1,12 @@
 import { useEffect, useReducer, useRef, useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import getMovies from 'controllers/api-controller';
 import PaginationControls from 'components/PaginationControls';
 import SplashScreen from 'components/SplashScreen';
+
+import css from './Home.module.css';
 
 const INITIAL_STATE = {
   data: [],
@@ -19,6 +21,7 @@ export default function Home() {
   const skipFetch = useRef(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const location = useLocation();
   const ENDPOINT = 'trending/movie/day';
 
   const currentPage = useMemo(() => {
@@ -78,6 +81,7 @@ export default function Home() {
     // dispatch({ type: 'error/set', payload: false });
     getMovies(ENDPOINT, { page: currentPage })
       .then(({ results, total_pages }) => {
+        console.log(results);
         dispatch({ type: 'data/set', payload: { results, total_pages } });
       })
       .catch(error => {
@@ -94,7 +98,6 @@ export default function Home() {
 
   return (
     <>
-      <h1>Trending Movies</h1>
       <PaginationControls
         current={currentPage}
         total={state.total_pages}
@@ -103,10 +106,19 @@ export default function Home() {
       {state.isLoading ? (
         <SplashScreen />
       ) : (
-        <ul>
+        <ul className={css.Home}>
           {state.data.map(movie => (
             <li key={movie.id}>
-              <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+              <Link to={`movies/${movie.id}`} state={{ from: location }}>
+                <img
+                  src={
+                    'https://image.tmdb.org/t/p/w220_and_h330_face' +
+                    movie.poster_path
+                  }
+                  alt={movie.title}
+                />
+                <h2>{movie.title}</h2>
+              </Link>
             </li>
           ))}
         </ul>

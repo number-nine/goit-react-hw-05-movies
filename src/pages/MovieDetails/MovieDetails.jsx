@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import getMovies from 'controllers/api-controller';
@@ -9,6 +9,8 @@ export default function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/movies');
   const ENDPOINT = 'movie/' + movieId;
 
   useEffect(() => {
@@ -30,6 +32,7 @@ export default function MovieDetails() {
   return (
     <>
       <div>details of movie {movieId}</div>
+      <Link to={backLink.current}>Back to movies</Link>
       <p>{ movie.title ?? 'nothing to display' }</p>
       <ul>
         <li>

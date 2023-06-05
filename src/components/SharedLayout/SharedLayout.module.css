@@ -1,0 +1,35 @@
+.Menu {
+    top: 0;
+    left: 0;
+    position: sticky;
+    z-index: 1100;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3f51b5;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+
+.Menu li {
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.Menu li:hover,
+li:focus {
+    background-color: #6a79ce;
+}
+
+.Menu a {
+    color: #fff;
+    /* text-decoration: none; */
+    font-size: 18px;
+}

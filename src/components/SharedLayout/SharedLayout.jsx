@@ -1,10 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
+import css from './SharedLayout.module.css'
 
 export default function SharedLayout() {
     return (
       <>
-        <div>Shared Layout with Navigation</div>
-        <ul>
+        <ul className={css.Menu}>
           <li>
             <Link to="/">Home</Link>
           </li>

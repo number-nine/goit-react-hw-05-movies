@@ -1,0 +1,43 @@
+.Home {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
+    padding: 20px;
+    margin: 0;
+    gap: 16px;
+    /* padding-bottom: 24px; */
+}
+
+.Home h2 {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0;
+    margin: 8px;
+}
+
+.Home li {
+    padding: 8px;
+    list-style: none;
+    border: 1px solid #b1b5c9;
+    border-radius: 8px;
+}
+
+.Home li:hover,
+li:focus {
+    background-color: #b4bbe0;
+
+}
+
+.Home img {
+    align-items: center;
+}
+
+.Home a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}

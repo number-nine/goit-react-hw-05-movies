@@ -1,0 +1,36 @@
+.Movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
+    padding: 20px;
+    margin: 0;
+    gap: 16px;
+    /* padding-bottom: 24px; */
+}
+
+.Movies li {
+    padding: 8px;
+    list-style: none;
+    border: 1px solid #b1b5c9;
+    border-radius: 8px;
+}
+
+.Movies li:hover,
+li:focus {
+    background-color: #b4bbe0;
+
+}
+
+.Movies img {
+    align-items: center;
+}
+
+.Movies a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}
